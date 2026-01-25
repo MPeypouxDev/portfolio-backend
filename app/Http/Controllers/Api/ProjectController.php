@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Project;
 
 class ProjectController extends Controller
 {
@@ -27,7 +28,6 @@ class ProjectController extends Controller
     public function adminIndex()
     {
         $projects = Project::with(['author', 'technologies', 'images'])
-            ->where('status', 'published')
             ->orderBy('order')
             ->get();
 
@@ -46,15 +46,7 @@ class ProjectController extends Controller
             ->orderBy('order')
             ->get();
 
-        return responses()->json($projects);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json($projects);
     }
 
     /**
@@ -75,7 +67,7 @@ class ProjectController extends Controller
             'technologies.*' => 'exists:technologies,id',
         ]);
 
-        $projects = Project::create([
+        $project = Project::create([
             ...$validated,
             'author_id' => auth('api')->id(),
         ]);
@@ -100,14 +92,6 @@ class ProjectController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
      * Mettre à jour un projet
      */
     public function update(Request $request, $id)
@@ -127,7 +111,7 @@ class ProjectController extends Controller
             'technologies.*' => 'exists:technologies,id',
         ]);
 
-        $project_>update($validated);
+        $project->update($validated);
 
         // Mettre à jour les technologies
         if (isset($validated['technologies'])) {
