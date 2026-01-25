@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProjectController;
+use App\Http\Controllers\Api\TechnologyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,14 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/projects', [ProjectController::class, 'index']);
 Route::get('/projects/featured', [ProjectController::class, 'featured']);
 Route::get('/projects/{id}', [ProjectController::class, 'show']);
+
+/*
+|--------------------------------------------------------------------------
+| Routes publiques - Technologies
+|--------------------------------------------------------------------------
+*/
+Route::get('/technologies', [TechnologyController::class, 'index']);
+Route::get('/technologies/{id}', [TechnologyController::class, 'show']);
 
 
 /*
@@ -38,4 +47,9 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/projects', [ProjectController::class, 'store']);
     Route::put('/projects/{id}', [ProjectController::class, 'update']);
     Route::delete('/projects/{id}', [ProjectController::class, 'destroy']);
+
+    // Routes Technologies
+    Route::post('/technologies', [TechnologyController::class, 'store']);
+    Route::put('/technologies/{id}', [TechnologyController::class, 'update']);
+    Route::delete('/technologies/{id}', [TechnologyController::class, 'destroy']);
 });
