@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\TechnologyController;
+use App\Http\Controllers\Api\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,14 @@ Route::get('/projects/{id}', [ProjectController::class, 'show']);
 Route::get('/technologies', [TechnologyController::class, 'index']);
 Route::get('/technologies/{id}', [TechnologyController::class, 'show']);
 
+/*
+|--------------------------------------------------------------------------
+| Routes publiques - Images
+|--------------------------------------------------------------------------
+*/
+Route::get('/images', [ImageController::class, 'index']);
+Route::get('/images/{id}', [ImageController::class, 'show']);
+
 
 /*
 |--------------------------------------------------------------------------
@@ -52,4 +61,9 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/technologies', [TechnologyController::class, 'store']);
     Route::put('/technologies/{id}', [TechnologyController::class, 'update']);
     Route::delete('/technologies/{id}', [TechnologyController::class, 'destroy']);
+
+    // Routes Images
+    Route::post('/images', [ImageController::class, 'store']);
+    Route::put('/images/{id}', [ImageController::class, 'update']);
+    Route::delete('/images/{id}', [ImageController::class, 'destroy']);
 });
