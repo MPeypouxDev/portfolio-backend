@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\TechnologyController;
 use App\Http\Controllers\Api\ImageController;
+use App\Http\Controllers\Api\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,13 @@ Route::get('/technologies/{id}', [TechnologyController::class, 'show']);
 Route::get('/images', [ImageController::class, 'index']);
 Route::get('/images/{id}', [ImageController::class, 'show']);
 
+/*
+|--------------------------------------------------------------------------
+| Routes publiques - Contacts
+|--------------------------------------------------------------------------
+*/
+Route::post('/contacts', [ContactController::class, 'store']);
+
 
 /*
 |--------------------------------------------------------------------------
@@ -66,4 +74,9 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/images', [ImageController::class, 'store']);
     Route::put('/images/{id}', [ImageController::class, 'update']);
     Route::delete('/images/{id}', [ImageController::class, 'destroy']);
+
+    // Routes Contacts
+    Route::get('/contacts', [ContactController::class, 'index']);
+    Route::get('/contacts/{id}', [ContactController::class, 'show']);
+    Route::delete('/contacts/{id}', [ContactController::class, 'destroy']);
 });
