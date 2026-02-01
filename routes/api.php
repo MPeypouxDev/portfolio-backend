@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\TechnologyController;
 use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\ContactController;
+use App\Http\Controllers\Api\UploadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,4 +80,8 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/contacts', [ContactController::class, 'index']);
     Route::get('/contacts/{id}', [ContactController::class, 'show']);
     Route::delete('/contacts/{id}', [ContactController::class, 'destroy']);
+
+    // Routes Uploads
+    Route::post('/upload', [UploadController::class, 'uploadImage']);
+    Route::delete('/upload', [UploadController::class, 'deleteImage']);
 });
