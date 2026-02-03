@@ -46,7 +46,7 @@ Route::get('/images/{id}', [ImageController::class, 'show']);
 | Routes publiques - Contacts
 |--------------------------------------------------------------------------
 */
-Route::post('/contacts', [ContactController::class, 'store']);
+Route::post('/contact', [ContactController::class, 'store']);
 
 
 /*
