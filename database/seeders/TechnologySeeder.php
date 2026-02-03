@@ -12,26 +12,29 @@ class TechnologySeeder extends Seeder
     {
         $technologies = [
             // Frontend
-            ['name' => 'Vue.js', 'type' => 'frontend', 'color' => '#42b883'],
-            ['name' => 'React', 'type' => 'frontend', 'color' => '#61dafb'],
-            ['name' => 'TailwindCSS', 'type' => 'frontend', 'color' => '#06b6d4'],
-            ['name' => 'JavaScript', 'type' => 'frontend', 'color' => '#f7df1e'],
+            ['name' => 'Vue.js', 'icon' => 'vuedotjs.svg', 'type' => 'frontend', 'color' => '#4FC08D'],
+            ['name' => 'React', 'icon' => 'react.svg', 'type' => 'frontend', 'color' => '#61DAFB'],
+            ['name' => 'TailwindCSS', 'icon' => 'tailwindcss.svg', 'type' => 'frontend', 'color' => '#06B6D4'],
+            ['name' => 'JavaScript', 'icon' => 'javascript.svg', 'type' => 'frontend', 'color' => '#F7DF1E'],
 
             // Backend
-            ['name' => 'Laravel', 'type' => 'backend', 'color' => '#ff2d20'],
-            ['name' => 'PHP', 'type' => 'backend', 'color' => '#777bb4'],
+            ['name' => 'Laravel', 'icon' => 'laravel.svg', 'type' => 'backend', 'color' => '#FF2D20'],
+            ['name' => 'PHP', 'icon' => 'php.svg', 'type' => 'backend', 'color' => '#777BB4'],
 
             // Database
-            ['name' => 'MySQL', 'type' => 'database', 'color' => '#4479a1'],
-            ['name' => 'PostgreSQL', 'type' => 'database', 'color' => '#336791'],
+            ['name' => 'MySQL', 'icon' => 'mysql.svg', 'type' => 'database', 'color' => '#4479A1'],
+            ['name' => 'PostgreSQL', 'icon' => 'postgresql.svg', 'type' => 'database', 'color' => '#4169E1'],
 
             // Tools
-            ['name' => 'Git', 'type' => 'tools', 'color' => '#f05032'],
-            ['name' => 'Figma', 'type' => 'tools', 'color' => '#f24e1e'],
+            ['name' => 'Git', 'icon' => 'github.svg', 'type' => 'tools', 'color' => '#181717'],
+            ['name' => 'Figma', 'icon' => 'figma.svg', 'type' => 'tools', 'color' => '#F24E1E'],
         ];
 
         foreach ($technologies as $tech) {
-            Technology::create($tech);
+            Technology::updateOrCreate(
+                ['name' => $tech['name']],
+                $tech
+            );
         }
     }
 }

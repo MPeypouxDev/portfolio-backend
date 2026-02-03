@@ -14,6 +14,7 @@ class Technology extends Model
         'name',
         'type',
         'color',
+        'icon',
     ];
 
     // Relations
