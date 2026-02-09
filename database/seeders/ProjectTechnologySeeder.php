@@ -14,14 +14,9 @@ class ProjectTechnologySeeder extends Seeder
         $technologies = Technology::all();
 
         $projectTechMapping = [
-            'ecommerce-platform' => ['Laravel', 'Vue.js', 'MySQL', 'TailwindCSS', 'JavaScript'],
-            'task-management-app' => ['React', 'Laravel', 'MySQL', 'TailwindCSS'],
-            'blog-cms' => ['Laravel', 'PHP', 'MySQL', 'TailwindCSS'],
-            'weather-dashboard' => ['Vue.js', 'JavaScript', 'TailwindCSS'],
-            'social-network' => ['React', 'Laravel', 'MySQL', 'TailwindCSS'],
-            'portfolio-generator' => ['Vue.js', 'Laravel', 'MySQL', 'TailwindCSS'],
-            'api-gateway' => ['Laravel', 'PHP', 'MySQL'],
-            'quiz-platform' => ['React', 'Laravel', 'MySQL', 'TailwindCSS', 'JavaScript'],
+            'agence-evenementielle' => ['HTML', 'CSS', 'JavaScript'],
+            'gestionnaire-finance' => ['HTML', 'CSS', 'JavaScript'],
+            'anime-fight' => ['HTML', 'CSS', 'JavaScript'],
         ];
 
         foreach ($projects as $project) {

@@ -10,29 +10,93 @@ class ImageSeeder extends Seeder
 {
     public function run(): void
     {
-        $projects = Project::all();
+        $evenementiel = Project::where('slug', 'agence-evenementielle')->first();
+        $finance = Project::where('slug', 'gestionnaire-finance')->first();
+        $combat = Project::where('slug', 'anime-fight')->first();
 
-        foreach ($projects as $index => $project) {
-            Image::create([
-                'name' => $project->slug . '-main.jpg',
-                'path' => '/images/projects/' . $project->slug . '/main.jpg',
-                'alt_text' => 'Image principale de ' . $project->title,
+        $images = [];
+
+        if ($evenementiel) {
+            $images[] = [
+                'project_id' => $evenementiel->id,
+                'name' => 'Page d\'accueil',
+                'path' => 'projects/agence-evenementielle/evenementiel-main.jpg',
+                'alt_text' => 'Page d\'accueil du site de l\'agence événementielle',
                 'is_primary' => true,
                 'order' => 0,
-                'project_id' => $project->id,
-            ]);
+            ];
+            $images[] = [
+                'project_id' => $evenementiel->id,
+                'name' => 'Services',
+                'path' => 'projects/agence-evenementielle/evenementiel1.jpg',
+                'alt_text' => 'Section services de l\'agence',
+                'is_primary' => false,
+                'order' => 1,
+            ];
+            $images[] = [
+                'project_id' => $evenementiel->id,
+                'name' => 'Portfolio',
+                'path' => 'projects/agence-evenementielle/evenementiel2.jpg',
+                'alt_text' => 'Galerie de réalisations',
+                'is_primary' => false,
+                'order' => 2,
+            ];
+        }
 
-            $secondaryImages = rand(2, 3);
-            for ($i = 1; $i <= $secondaryImages; $i++) {
-                Image::create([
-                    'name' => $project->slug . '-' . $i . '.jpg',
-                    'path' => '/images/projects/' . $project->slug . '/screenshot-' . $i . '.jpg',
-                    'alt_text' => 'Capture d\'écran ' . $i . ' de ' . $project->title,
-                    'is_primary' => false,
-                    'order' => $i,
-                    'project_id' => $project->id,
-                ]);
-            }
+        if ($finance) {
+            $images[] = [
+                'project_id' => $finance->id,
+                'name' => 'Dashboard',
+                'path' => 'projects/gestionnaire-finances/finance-main.jpg',
+                'alt_text' => 'Dashboard principal du gestionnaire de finances',
+                'is_primary' => true,
+                'order' => 0,
+            ];
+            $images[] = [
+                'project_id' => $finance->id,
+                'name' => 'Statistiques',
+                'path' => 'projects/gestionnaire-finances/finance1.jpg',
+                'alt_text' => 'Graphiques et statistiques financières',
+                'is_primary' => false,
+                'order' => 1,
+            ];
+            $images[] = [
+                'project_id' => $finance->id,
+                'name' => 'Budgets',
+                'path' => 'projects/gestionnaire-finances/finance2.jpg',
+                'alt_text' => 'Gestion des budgets',
+                'is_primary' => false,
+                'order' => 2,
+            ];
+        }
+
+        if ($combat) {
+            $images[] = [
+                'project_id' => $combat->id,
+                'name' => 'Menu principal',
+                'path' => 'projects/anime-fight/combat-main.jpg',
+                'alt_text' => 'Écran d\'accueil du jeu Combat Arena',
+                'is_primary' => true,
+                'order' => 0,
+            ];
+            $images[] = [
+                'project_id' => $combat->id,
+                'name' => 'Combat',
+                'path' => 'projects/anime-fight/combat1.jpg',
+                'alt_text' => 'Combat en cours entre deux personnages',
+                'is_primary' => false,
+                'order' => 1,
+            ];
+        }
+
+        foreach ($images as $imageData) {
+            Image::updateOrCreate(
+                [
+                    'project_id' => $imageData['project_id'],
+                    'path' => $imageData['path']
+                ],
+                $imageData
+            );
         }
     }
 }
