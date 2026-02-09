@@ -16,6 +16,8 @@ class TechnologySeeder extends Seeder
             ['name' => 'React', 'icon' => 'react.svg', 'type' => 'frontend', 'color' => '#61DAFB'],
             ['name' => 'TailwindCSS', 'icon' => 'tailwindcss.svg', 'type' => 'frontend', 'color' => '#06B6D4'],
             ['name' => 'JavaScript', 'icon' => 'javascript.svg', 'type' => 'frontend', 'color' => '#F7DF1E'],
+            ['name' => 'HTML5', 'icon' => 'html5.svg', 'type' => 'frontend', 'color' => '#E34F26'],
+            ['name' => 'CSS', 'icon' => 'css.svg', 'type' => 'frontend', 'color' => '#663399'],
 
             // Backend
             ['name' => 'Laravel', 'icon' => 'laravel.svg', 'type' => 'backend', 'color' => '#FF2D20'],

@@ -14,9 +14,9 @@ class ProjectTechnologySeeder extends Seeder
         $technologies = Technology::all();
 
         $projectTechMapping = [
-            'agence-evenementielle' => ['HTML', 'CSS', 'JavaScript'],
-            'gestionnaire-finance' => ['HTML', 'CSS', 'JavaScript'],
-            'anime-fight' => ['HTML', 'CSS', 'JavaScript'],
+            'agence-evenementielle' => ['HTML5', 'CSS', 'JavaScript'],
+            'gestionnaire-finance' => ['HTML5', 'CSS', 'JavaScript'],
+            'anime-fight' => ['HTML5', 'CSS', 'JavaScript'],
         ];
 
         foreach ($projects as $project) {
