@@ -21,6 +21,7 @@ class Project extends Model
         'author_id',
         'is_featured',
         'order',
+        'type',
     ];
 
     protected $casts = [

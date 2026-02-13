@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+// use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
@@ -31,6 +33,7 @@ class ProjectController extends Controller
     public function adminIndex()
     {
         $projects = Project::with(['author', 'technologies', 'images'])
+            ->where('author_id', auth('api')->id())
             ->orderBy('order')
             ->get();
 
@@ -57,19 +60,27 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        $validated = $request->validated();
 
-        $project = Project::create([
-            ...$validated,
-            'author_id' => auth('api')->id(),
-        ]);
+        $data = $request->validated();
 
-        // Attacher les technologies
-        if (isset($validated['technologies'])) {
-            $project->technologies()->attach($validated['technologies']);
+        $slug = $data['slug'] ?? Str::slug($data['title']);
+
+        if (Project::where('slug', $slug)->exists()) {
+            $slug .= '-' . now()->format('His');
         }
 
-        return (new ProjectResource($project->load(['technologies', 'images'])))
+        $data['slug'] = $slug;
+
+        $data['author_id'] = auth('api')->id();
+
+        $project = Project::create($data);
+
+        // Attacher les technologies
+        if (isset($data['technologies'])) {
+            $project->technologies()->attach($data['technologies']);
+        }
+
+        return (new ProjectResource($project->load(['author', 'technologies', 'images'])))
             ->response()
             ->setStatusCode(201);
     }
@@ -80,6 +91,7 @@ class ProjectController extends Controller
     public function show($id)
     {
         $project = Project::with(['author', 'technologies', 'images'])
+            ->where('status', 'published')
             ->findOrFail($id);
 
         return new ProjectResource($project);
@@ -91,6 +103,7 @@ class ProjectController extends Controller
     public function update(UpdateProjectRequest $request, $id)
     {
         $project = Project::findOrFail($id);
+        $this->authorize('update', $project);
 
         $validated = $request->validated();
 
@@ -110,8 +123,9 @@ class ProjectController extends Controller
     public function destroy($id)
     {
         $project = Project::findOrFail($id);
+        $this->authorize('delete', $project);
         $project->delete();
 
-        return response()->json(['message' => 'Projet supprimé avec succès']);
+        return response()->noContent();
     }
 }

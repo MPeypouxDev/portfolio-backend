@@ -29,7 +29,7 @@ class StoreProjectRequest extends FormRequest
                 'unique:projects,title'
             ],
             'slug' => [
-                'required',
+                'nullable',
                 'string',
                 'max:255',
                 'unique:projects,slug',
@@ -60,6 +60,7 @@ class StoreProjectRequest extends FormRequest
                 'before_or_equal:today'
             ],
             'is_featured' => [
+                'nullable',
                 'boolean'
             ],
             'order' => [
@@ -69,12 +70,15 @@ class StoreProjectRequest extends FormRequest
             ],
             'type' => [
                 'required',
+                'string',
                 'in:frontend,fullstack,backend'
             ],
             'technologies' => [
+                'nullable',
                 'array'
             ],
             'technologies.*' => [
+                'integer',
                 'exists:technologies,id'
             ]
         ];
@@ -87,7 +91,7 @@ class StoreProjectRequest extends FormRequest
             'title.unique' => 'Un projet avec ce titre existe déjà',
             'description.min' => 'La description doit contenir au moins 10 caractères',
             'github_url.starts_with' => 'L\'URL Github doit commencer par https://',
-            'dat_realisation.before_or_equal' => 'La date de réalisation ne peut pas être dans le futur',
+            'date_realisation.before_or_equal' => 'La date de réalisation ne peut pas être dans le futur',
             'type.in' => 'Le type doit être frontend, fullstack ou backend',
         ];
     }
