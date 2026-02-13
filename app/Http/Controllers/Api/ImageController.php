@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\UploadImageRequest;
 
 class ImageController extends Controller
 {
@@ -21,16 +22,9 @@ class ImageController extends Controller
     /**
      * Upload une nouvelle image (admin)
      */
-    public function store(Request $request)
+    public function store(UploadImageRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'path' => 'required|string|max:255',
-            'alt_text' => 'nullable|string',
-            'is_primary' => 'boolean',
-            'order' => 'required|integer|min:0',
-            'project_id' => 'required|exists:projects,id',
-        ]);
+        $validated = $request->validated();
 
         $image = Image::create($validated);
 
@@ -49,18 +43,11 @@ class ImageController extends Controller
     /**
      * Modifier une image (admin)
      */
-    public function update(Request $request, $id)
+    public function update(UploadImageRequest $request, $id)
     {
         $image = Image::findOrFail($id);
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'path' => 'required|string|max:255',
-            'alt_text' => 'nullable|string',
-            'is_primary' => 'boolean',
-            'order' => 'required|integer|min:0',
-            'project_id' => 'required|exists:projects,id',
-        ]);
+        $validated = $request->validated();
 
         $image->update($validated);
 

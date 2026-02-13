@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Technology;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreTechnologyRequest;
+use App\Http\Requests\UpdateTechnologyRequest;
 
 class TechnologyController extends Controller
 {
@@ -20,13 +22,9 @@ class TechnologyController extends Controller
     /**
      * Créer une nouvelle technologie (admin)
      */
-    public function store(Request $request)
+    public function store(StoreTechnologyRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:technologies',
-            'icon' => 'nullable|string|max:255',
-            'color' => 'required|string|max:7',
-        ]);
+        $validated = $request->validated();
 
         $technology = Technology::create($validated);
 
@@ -45,15 +43,11 @@ class TechnologyController extends Controller
     /**
      * Modifier une technologie (admin)
      */
-    public function update(Request $request, $id)
+    public function update(UpdateTechnologyRequest $request, $id)
     {
         $technology = Technology::findOrFail($id);
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:technologies,name,' . $id,
-            'icon' => 'nullable|string|max:255',
-            'color' => 'required|string|max:7',
-        ]);
+        $validated = $request->validated();
 
         $technology->update($validated);
 

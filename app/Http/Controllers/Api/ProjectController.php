@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Http\Requests\StoreProjectRequest;
+use App\Http\Requests\UpdateProjectRequest;
 
 class ProjectController extends Controller
 {
@@ -52,20 +54,9 @@ class ProjectController extends Controller
     /**
      * Créer un nouveau projet
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'status' => 'required|in:draft,published,archived',
-            'github_url' => 'nullable|url',
-            'demo_url' => 'nullable|url',
-            'date_realisation' => 'required|date',
-            'is_featured' => 'boolean',
-            'order' => 'required|integer',
-            'technologies' => 'array',
-            'technologies.*' => 'exists:technologies,id',
-        ]);
+        $validated = $request->validated();
 
         $project = Project::create([
             ...$validated,
@@ -94,22 +85,11 @@ class ProjectController extends Controller
     /**
      * Mettre à jour un projet
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProjectRequest $request, $id)
     {
         $project = Project::findOrFail($id);
 
-        $validated = $request->validate([
-            'title' => 'sometimes|string|max:255',
-            'description' => 'sometimes|string',
-            'status' => 'sometimes|in:draft,published,archived',
-            'github_url' => 'nullable|url',
-            'demo_url' => 'nullable|url',
-            'date_realisation' => 'sometimes|date',
-            'is_featured' => 'boolean',
-            'order' => 'sometimes|integer',
-            'technologies' => 'array',
-            'technologies.*' => 'exists:technologies,id',
-        ]);
+        $validated = $request->validated();
 
         $project->update($validated);
 

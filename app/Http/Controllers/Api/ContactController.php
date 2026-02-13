@@ -5,21 +5,16 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreContactRequest;
 
 class ContactController extends Controller
 {
     /**
      * Envoyer un message de contact (public)
      */
-    public function store(Request $request)
+    public function store(StoreContactRequest $request)
     {
-        $validated = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:20',
-            'messages' => 'required|string',
-        ]);
+        $validated = $request->validated();
 
         $contact = Contact::create($validated);
 
