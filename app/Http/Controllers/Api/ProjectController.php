@@ -107,6 +107,16 @@ class ProjectController extends Controller
 
         $validated = $request->validated();
 
+        if (isset($validated['title']) && !isset($validated['slug'])) {
+            $slug = Str::slug($validated['title']);
+
+            if (Project::where('slug', $slug)->where('id', '!=', $project->id)->exists()) {
+                $slug .= '-' . now()->format('His');
+            }
+
+            $validated['slug'] = $slug;
+        }
+
         $project->update($validated);
 
         // Mettre à jour les technologies

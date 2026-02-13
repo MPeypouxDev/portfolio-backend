@@ -46,11 +46,13 @@ class UpdateProjectRequest extends FormRequest
                 'in:draft,published,archived'
             ],
             'github_url' => [
+                'sometimes',
                 'nullable',
                 'url',
                 'starts_with:https://'
             ],
             'demo_url' => [
+                'sometimes',
                 'nullable',
                 'url',
                 'starts_with:https://'
@@ -61,6 +63,8 @@ class UpdateProjectRequest extends FormRequest
                 'before_or_equal:today'
             ],
             'is_featured' => [
+                'sometimes',
+                'nullable',
                 'boolean'
             ],
             'order' => [
@@ -73,9 +77,11 @@ class UpdateProjectRequest extends FormRequest
                 'in:frontend,fullstack,backend'
             ],
             'technologies' => [
+                'nullable',
                 'array'
             ],
             'technologies.*' => [
+                'integer',
                 'exists:technologies,id'
             ]
         ];
@@ -88,7 +94,7 @@ class UpdateProjectRequest extends FormRequest
             'title.unique' => 'Un projet avec ce titre existe déjà',
             'description.min' => 'La description doit contenir au moins 10 caractères',
             'github_url.starts_with' => 'L\'URL Github doit commencer par https://',
-            'dat_realisation.before_or_equal' => 'La date de réalisation ne peut pas être dans le futur',
+            'date_realisation.before_or_equal' => 'La date de réalisation ne peut pas être dans le futur',
             'type.in' => 'Le type doit être frontend, fullstack ou backend',
         ];
     }
