@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use App\Http\Resources\ProjectResource;
 
 class ProjectController extends Controller
 {
@@ -20,7 +21,7 @@ class ProjectController extends Controller
             ->orderBy('order')
             ->get();
 
-        return response()->json($projects);
+        return ProjectResource::collection($projects);
     }
 
     /**
@@ -33,7 +34,7 @@ class ProjectController extends Controller
             ->orderBy('order')
             ->get();
 
-        return response()->json($projects);
+        return ProjectResource::collection($projects);
     }
 
     /**
@@ -48,7 +49,7 @@ class ProjectController extends Controller
             ->orderBy('order')
             ->get();
 
-        return response()->json($projects);
+        return ProjectResource::collection($projects);
     }
 
     /**
@@ -68,7 +69,9 @@ class ProjectController extends Controller
             $project->technologies()->attach($validated['technologies']);
         }
 
-        return response()->json($project->load(['technologies', 'images']), 201);
+        return (new ProjectResource($project->load(['technologies', 'images'])))
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**
@@ -79,7 +82,7 @@ class ProjectController extends Controller
         $project = Project::with(['author', 'technologies', 'images'])
             ->findOrFail($id);
 
-        return response()->json($project);
+        return new ProjectResource($project);
     }
 
     /**
@@ -98,7 +101,7 @@ class ProjectController extends Controller
             $project->technologies()->sync($validated['technologies']);
         }
 
-        return response()->json($project->load(['technologies', 'images']));
+        return new ProjectResource($project->load(['technologies', 'images']));
     }
 
     /**

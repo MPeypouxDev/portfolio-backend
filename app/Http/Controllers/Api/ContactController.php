@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreContactRequest;
+use App\Http\Resources\ContactResource;
 
 class ContactController extends Controller
 {
@@ -30,7 +31,8 @@ class ContactController extends Controller
     public function index()
     {
         $contact = Contact::orderBy('created_at', 'desc')->get();
-        return response()->json($contact);
+        
+        return ContactResource::collection($contact);
     }
 
     /**
@@ -39,7 +41,8 @@ class ContactController extends Controller
     public function show($id)
     {
         $contact = Contact::findOrFail($id);
-        return response()->json($contact);
+        
+        return new ContactResource($contact);
     }
 
     /**

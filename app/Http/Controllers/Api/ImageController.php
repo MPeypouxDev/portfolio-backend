@@ -7,6 +7,7 @@ use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UploadImageRequest;
+use App\Http\Resources\ImageResource;
 
 class ImageController extends Controller
 {
@@ -16,7 +17,8 @@ class ImageController extends Controller
     public function index()
     {
         $images = Image::with('project')->get();
-        return response()->json($images);
+        
+        return ImageResource::collection($images);
     }
 
     /**
@@ -28,7 +30,9 @@ class ImageController extends Controller
 
         $image = Image::create($validated);
 
-        return response()->json($image->load('project'), 201);
+        return (new ImageResource($image->load('project')))
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**
@@ -37,7 +41,8 @@ class ImageController extends Controller
     public function show($id)
     {
         $image = Image::with('project')->findOrFail($id);
-        return response()->json($image);
+        
+        return new ImageResource($image);
     }
 
     /**
@@ -51,7 +56,7 @@ class ImageController extends Controller
 
         $image->update($validated);
 
-        return response()->json($image->load('project'));
+        return new ImageResource($image->load('project'));
     }
 
     /**

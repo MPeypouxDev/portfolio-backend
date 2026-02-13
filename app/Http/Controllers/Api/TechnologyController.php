@@ -7,6 +7,7 @@ use App\Models\Technology;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTechnologyRequest;
 use App\Http\Requests\UpdateTechnologyRequest;
+use App\Http\Resources\TechnologyResource;
 
 class TechnologyController extends Controller
 {
@@ -16,7 +17,8 @@ class TechnologyController extends Controller
     public function index()
     {
         $technologies = Technology::all();
-        return response()->json($technologies);
+
+        return TechnologyResource::collection($technologies);
     }
 
     /**
@@ -28,7 +30,9 @@ class TechnologyController extends Controller
 
         $technology = Technology::create($validated);
 
-        return response()->json($technology, 201);
+        return (new TechnologyResource($technology))
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**
@@ -37,7 +41,8 @@ class TechnologyController extends Controller
     public function show($id)
     {
         $technology = Technology::findOrFail($id);
-        return response()->json($technology);
+        
+        return new TechnologyResource($technology);
     }
 
     /**
@@ -51,7 +56,7 @@ class TechnologyController extends Controller
 
         $technology->update($validated);
 
-        return response()->json($technology);
+        return new TechnologyResource($technology);
     }
 
     /**
