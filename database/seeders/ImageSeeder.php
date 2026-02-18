@@ -20,7 +20,7 @@ class ImageSeeder extends Seeder
             $images[] = [
                 'project_id' => $evenementiel->id,
                 'name' => 'Page d\'accueil',
-                'path' => 'projects/agence-evenementielle/evenementiel-main.jpg',
+                'path' => 'https://res.cloudinary.com/dzirsb9lc/image/upload/v1771339121/evenementiel-main_pekcle.png',
                 'alt_text' => 'Page d\'accueil du site de l\'agence événementielle',
                 'is_primary' => true,
                 'order' => 0,
@@ -28,7 +28,7 @@ class ImageSeeder extends Seeder
             $images[] = [
                 'project_id' => $evenementiel->id,
                 'name' => 'Services',
-                'path' => 'projects/agence-evenementielle/evenementiel1.jpg',
+                'path' => 'https://res.cloudinary.com/dzirsb9lc/image/upload/v1771339121/evenementiel1_xhb87v.png',
                 'alt_text' => 'Section services de l\'agence',
                 'is_primary' => false,
                 'order' => 1,
@@ -36,7 +36,7 @@ class ImageSeeder extends Seeder
             $images[] = [
                 'project_id' => $evenementiel->id,
                 'name' => 'Portfolio',
-                'path' => 'projects/agence-evenementielle/evenementiel2.jpg',
+                'path' => 'https://res.cloudinary.com/dzirsb9lc/image/upload/v1771339120/evenementiel2_qq6y80.png',
                 'alt_text' => 'Galerie de réalisations',
                 'is_primary' => false,
                 'order' => 2,
@@ -47,7 +47,7 @@ class ImageSeeder extends Seeder
             $images[] = [
                 'project_id' => $finance->id,
                 'name' => 'Dashboard',
-                'path' => 'projects/gestionnaire-finances/finance-main.jpg',
+                'path' => 'https://res.cloudinary.com/dzirsb9lc/image/upload/v1771338161/finance-main_ab2akt.png',
                 'alt_text' => 'Dashboard principal du gestionnaire de finances',
                 'is_primary' => true,
                 'order' => 0,
@@ -55,7 +55,7 @@ class ImageSeeder extends Seeder
             $images[] = [
                 'project_id' => $finance->id,
                 'name' => 'Statistiques',
-                'path' => 'projects/gestionnaire-finances/finance1.jpg',
+                'path' => 'https://res.cloudinary.com/dzirsb9lc/image/upload/v1771338161/finance1_azdkla.png',
                 'alt_text' => 'Graphiques et statistiques financières',
                 'is_primary' => false,
                 'order' => 1,
@@ -63,7 +63,7 @@ class ImageSeeder extends Seeder
             $images[] = [
                 'project_id' => $finance->id,
                 'name' => 'Budgets',
-                'path' => 'projects/gestionnaire-finances/finance2.jpg',
+                'path' => 'https://res.cloudinary.com/dzirsb9lc/image/upload/v1771338162/finance2_a6wmtm.png',
                 'alt_text' => 'Gestion des budgets',
                 'is_primary' => false,
                 'order' => 2,
@@ -74,7 +74,7 @@ class ImageSeeder extends Seeder
             $images[] = [
                 'project_id' => $combat->id,
                 'name' => 'Menu principal',
-                'path' => 'projects/anime-fight/combat-main.jpg',
+                'path' => 'https://res.cloudinary.com/dzirsb9lc/image/upload/v1771338179/combat-main_dcpwql.png',
                 'alt_text' => 'Écran d\'accueil du jeu Combat Arena',
                 'is_primary' => true,
                 'order' => 0,
@@ -82,7 +82,7 @@ class ImageSeeder extends Seeder
             $images[] = [
                 'project_id' => $combat->id,
                 'name' => 'Combat',
-                'path' => 'projects/anime-fight/combat1.jpg',
+                'path' => 'https://res.cloudinary.com/dzirsb9lc/image/upload/v1771338178/combat1_qbgvvw.png',
                 'alt_text' => 'Combat en cours entre deux personnages',
                 'is_primary' => false,
                 'order' => 1,
