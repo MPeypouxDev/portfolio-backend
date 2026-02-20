@@ -80,6 +80,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/contacts', [ContactController::class, 'index']);
     Route::get('/contacts/{id}', [ContactController::class, 'show']);
     Route::delete('/contacts/{id}', [ContactController::class, 'destroy']);
+    Route::put('/admin/contacts/{id}/read', [ContactController::class, 'markAsRead']);
 
     // Routes Uploads
     Route::post('/upload', [UploadController::class, 'uploadImage']);

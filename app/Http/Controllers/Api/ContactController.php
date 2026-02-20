@@ -55,4 +55,12 @@ class ContactController extends Controller
 
         return response()->json(['message' => 'Contact deleted successfuly']);
     }
+
+    public function markAsRead($id)
+    {
+        $contact = Contact::findOrFail($id);
+        $contact->update(['read_at' => now()]);
+
+        return new ContactResource($contact);
+    }
 }
