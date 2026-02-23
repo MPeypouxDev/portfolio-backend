@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProjectRequest extends FormRequest
 {
@@ -26,13 +27,13 @@ class StoreProjectRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                'unique:projects,title'
+                Rule::unique('projects', 'title')->whereNull('deleted_at')
             ],
             'slug' => [
                 'nullable',
                 'string',
                 'max:255',
-                'unique:projects,slug',
+                Rule::unique('projects', 'slug')->whereNull('deleted_at'),
                 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/'
             ],
             'description' => [
