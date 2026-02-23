@@ -24,6 +24,7 @@ class ContactResource extends JsonResource
             'created_at' => $this->created_at
                 ? \Carbon\Carbon::parse($this->created_at)->format('d/m/Y H:i')
                 : null,
+            'read_at' => $this->read_at,
         ];
     }
 }
