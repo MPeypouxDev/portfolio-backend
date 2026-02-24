@@ -5,6 +5,7 @@ namespace Tests\Feature\Technologies;
 use App\Models\Technology;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class TechnologyTest extends TestCase
@@ -25,7 +26,9 @@ class TechnologyTest extends TestCase
     /** @test */
     public function can_get_list_of_technologies()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         Technology::truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         Technology::factory()->count(5)->create();
 
