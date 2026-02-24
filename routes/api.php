@@ -1,13 +1,12 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ContactController;
+use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\TechnologyController;
-use App\Http\Controllers\Api\ImageController;
-use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\UploadController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,7 +46,6 @@ Route::get('/images/{id}', [ImageController::class, 'show']);
 |--------------------------------------------------------------------------
 */
 Route::post('/contact', [ContactController::class, 'store']);
-
 
 /*
 |--------------------------------------------------------------------------

@@ -10,7 +10,7 @@ class ProjectSeeder extends Seeder
     public function run(): void
     {
         $projects = [
-            [   'title' => 'Agence Evénementielle',
+            ['title' => 'Agence Evénementielle',
                 'slug' => 'agence-evenementielle',
                 'description' => 'Site vitrine pour une agence événementielle. Interface élégante présentant les services et formulaire de contact.',
                 'type' => 'frontend',

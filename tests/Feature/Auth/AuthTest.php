@@ -2,10 +2,9 @@
 
 namespace Tests\Feature\Auth;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class AuthTest extends TestCase
 {
@@ -28,11 +27,11 @@ class AuthTest extends TestCase
         ]);
 
         $response->assertStatus(200)
-                 ->assertJsonStructure([
-                    'access_token',
-                    'token_type',
-                    'expires_in',
-                 ]);
+            ->assertJsonStructure([
+                'access_token',
+                'token_type',
+                'expires_in',
+            ]);
     }
 
     /** @test */
@@ -44,9 +43,9 @@ class AuthTest extends TestCase
         ]);
 
         $response->assertStatus(401)
-                 ->assertJson([
-                    'message' => 'Identifiants incorrects',
-                 ]);
+            ->assertJson([
+                'message' => 'Identifiants incorrects',
+            ]);
     }
 
     /** @test */
@@ -76,13 +75,13 @@ class AuthTest extends TestCase
         ]);
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer' . $this->token,
+            'Authorization' => 'Bearer'.$this->token,
         ])->postJson('/api/logout');
 
         $response->assertStatus(200)
-                 ->assertJson([
-                    'message' => 'Déconnexion réussie',
-                 ]);
+            ->assertJson([
+                'message' => 'Déconnexion réussie',
+            ]);
     }
 
     /** @test */
@@ -94,14 +93,14 @@ class AuthTest extends TestCase
         ]);
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer' . $this->token,
+            'Authorization' => 'Bearer'.$this->token,
         ])->postJson('/api/refresh');
 
         $response->assertStatus(200)
-                 ->assertJsonStructure([
-                    'access_token',
-                    'token_type',
-                    'expires_in',
-                 ]);
+            ->assertJsonStructure([
+                'access_token',
+                'token_type',
+                'expires_in',
+            ]);
     }
 }

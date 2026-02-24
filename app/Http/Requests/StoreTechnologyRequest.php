@@ -37,7 +37,7 @@ class StoreTechnologyRequest extends FormRequest
                 'required',
                 'string',
                 'max:7',
-            ]
+            ],
         ];
     }
 

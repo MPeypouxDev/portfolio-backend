@@ -23,6 +23,8 @@ jobs:
           php-version: '8.2'
       - name: Install dependencies
         run: composer install
+      - name: Check code style
+        run: ./vendor/bin/pint --test
       - name: Create .env.testing
         run: |
           echo "APP_ENV=testing" >> .env.testing

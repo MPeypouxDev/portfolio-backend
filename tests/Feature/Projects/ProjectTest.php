@@ -13,12 +13,13 @@ class ProjectTest extends TestCase
     use RefreshDatabase;
 
     protected $user;
+
     protected $token;
 
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $this->user = User::factory()->create();
         $this->token = auth('api')->login($this->user);
     }
@@ -32,7 +33,7 @@ class ProjectTest extends TestCase
         $response = $this->getJson('/api/projects');
 
         $response->assertStatus(200)
-                 ->assertJsonCount(1);
+            ->assertJsonCount(1);
     }
 
     /** @test */
@@ -46,9 +47,9 @@ class ProjectTest extends TestCase
         $response = $this->getJson("/api/projects/{$project->id}");
 
         $response->assertStatus(200)
-                 ->assertJsonFragment([
-                     'title' => $project->title,
-                 ]);
+            ->assertJsonFragment([
+                'title' => $project->title,
+            ]);
     }
 
     /** @test */
@@ -82,8 +83,8 @@ class ProjectTest extends TestCase
         $technology = Technology::factory()->create();
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer ' . $this->token,
-            ])->postJson('/api/projects', [
+            'Authorization' => 'Bearer '.$this->token,
+        ])->postJson('/api/projects', [
             'title' => 'Test Project',
             'slug' => 'test-project',
             'description' => 'Description de test avec plus de 10 caractères',
@@ -95,9 +96,9 @@ class ProjectTest extends TestCase
         ]);
 
         $response->assertStatus(201)
-                 ->assertJsonFragment([
-                     'title' => 'Test Project',
-                 ]);
+            ->assertJsonFragment([
+                'title' => 'Test Project',
+            ]);
 
         $this->assertDatabaseHas('projects', [
             'title' => 'Test Project',
@@ -108,18 +109,18 @@ class ProjectTest extends TestCase
     public function project_creation_validates_required_fields()
     {
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer ' . $this->token,
+            'Authorization' => 'Bearer '.$this->token,
         ])->postJson('/api/projects', []);
 
         $response->assertStatus(422)
-                 ->assertJsonValidationErrors([
-                     'title',
-                     'description',
-                     'status',
-                     'type',
-                     'date_realisation',
-                     'order',
-                 ]);
+            ->assertJsonValidationErrors([
+                'title',
+                'description',
+                'status',
+                'type',
+                'date_realisation',
+                'order',
+            ]);
     }
 
     /** @test */
@@ -130,8 +131,8 @@ class ProjectTest extends TestCase
         ]);
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer ' . $this->token,
-            ])->putJson("/api/projects/{$project->id}", [
+            'Authorization' => 'Bearer '.$this->token,
+        ])->putJson("/api/projects/{$project->id}", [
             'title' => 'Updated Title',
         ]);
 
@@ -151,7 +152,7 @@ class ProjectTest extends TestCase
         ]);
 
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer ' . $this->token,
+            'Authorization' => 'Bearer '.$this->token,
         ])->deleteJson("/api/projects/{$project->id}");
 
         $response->assertStatus(204);

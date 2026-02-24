@@ -3,7 +3,6 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use App\Http\Middleware\ForceJsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -30,12 +29,12 @@ return Application::configure(basePath: dirname(__DIR__))
 
             if ($response->getStatusCode() >= 400) {
                 $newData = [
-                'status' => 'error',
-                'message' => $data['message'] ?? 'An error occurred',
-                'errors' => $data['errors'] ?? null
-            ];
+                    'status' => 'error',
+                    'message' => $data['message'] ?? 'An error occurred',
+                    'errors' => $data['errors'] ?? null,
+                ];
 
-            $response->setContent(json_encode($newData));
+                $response->setContent(json_encode($newData));
             }
 
             return $response;

@@ -47,7 +47,7 @@ class UploadImageRequest extends FormRequest
             'project_id' => [
                 'required',
                 'exists:projects,id',
-            ]
+            ],
         ];
     }
 

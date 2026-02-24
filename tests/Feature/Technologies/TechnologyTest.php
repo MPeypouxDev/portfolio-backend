@@ -13,12 +13,13 @@ class TechnologyTest extends TestCase
     use RefreshDatabase;
 
     protected $user;
+
     protected $token;
 
     protected function setUp(): void
     {
         parent::setUp();
-        
+
         $this->user = User::factory()->create();
         $this->token = auth('api')->login($this->user);
     }
@@ -35,7 +36,7 @@ class TechnologyTest extends TestCase
         $response = $this->getJson('/api/technologies');
 
         $response->assertStatus(200)
-                 ->assertJsonCount(5, 'data');
+            ->assertJsonCount(5, 'data');
     }
 
     /** @test */
@@ -54,7 +55,7 @@ class TechnologyTest extends TestCase
     public function authenticated_user_can_create_technology()
     {
         $response = $this->withHeaders([
-            'Authorization' => 'Bearer ' . $this->token,
+            'Authorization' => 'Bearer '.$this->token,
         ])->postJson('/api/technologies', [
             'name' => 'Vue.js',
             'type' => 'frontend',
@@ -62,9 +63,9 @@ class TechnologyTest extends TestCase
         ]);
 
         $response->assertStatus(201)
-                 ->assertJsonFragment([
-                     'name' => 'Vue.js',
-                 ]);
+            ->assertJsonFragment([
+                'name' => 'Vue.js',
+            ]);
 
         $this->assertDatabaseHas('technologies', [
             'name' => 'Vue.js',

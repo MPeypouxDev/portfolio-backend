@@ -18,7 +18,7 @@ class ImageResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'path' => $this->path,
-            'url' => url('storage/' . $this->path),
+            'url' => url('storage/'.$this->path),
             'alt_text' => $this->alt_text,
             'is_primary' => $this->is_primary,
             'order' => $this->order,

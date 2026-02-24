@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('icon')->nullable();
         });
     }
-    
+
     public function down(): void
     {
         Schema::dropIfExists('technologies');

@@ -46,7 +46,7 @@ class StoreContactRequest extends FormRequest
             'messages' => [
                 'required',
                 'string',
-            ]
+            ],
         ];
     }
 

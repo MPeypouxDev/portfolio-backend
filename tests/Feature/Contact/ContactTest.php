@@ -21,9 +21,9 @@ class ContactTest extends TestCase
         ]);
 
         $response->assertStatus(201)
-                 ->assertJson([
-                     'message' => 'Message sent successfully',
-                 ]);
+            ->assertJson([
+                'message' => 'Message sent successfully',
+            ]);
 
         $this->assertDatabaseHas('contacts', [
             'email' => 'john@example.com',
@@ -36,12 +36,12 @@ class ContactTest extends TestCase
         $response = $this->postJson('/api/contact', []);
 
         $response->assertStatus(422)
-                 ->assertJsonValidationErrors([
-                     'first_name',
-                     'last_name',
-                     'email',
-                     'messages',
-                 ]);
+            ->assertJsonValidationErrors([
+                'first_name',
+                'last_name',
+                'email',
+                'messages',
+            ]);
     }
 
     /** @test */
@@ -55,6 +55,6 @@ class ContactTest extends TestCase
         ]);
 
         $response->assertStatus(422)
-                 ->assertJsonValidationErrors(['email']);
+            ->assertJsonValidationErrors(['email']);
     }
 }

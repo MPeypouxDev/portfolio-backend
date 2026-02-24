@@ -93,7 +93,7 @@ class ImageSeeder extends Seeder
             Image::updateOrCreate(
                 [
                     'project_id' => $imageData['project_id'],
-                    'path' => $imageData['path']
+                    'path' => $imageData['path'],
                 ],
                 $imageData
             );
