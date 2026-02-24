@@ -75,7 +75,6 @@ class ProjectController extends Controller
 
         $project = Project::create($data);
 
-        // Attacher les technologies
         if (isset($data['technologies'])) {
             $project->technologies()->attach($data['technologies']);
         }
