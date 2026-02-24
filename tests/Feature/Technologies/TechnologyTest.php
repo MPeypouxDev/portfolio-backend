@@ -25,6 +25,8 @@ class TechnologyTest extends TestCase
     /** @test */
     public function can_get_list_of_technologies()
     {
+        Technology::truncate();
+
         Technology::factory()->count(5)->create();
 
         $response = $this->getJson('/api/technologies');
