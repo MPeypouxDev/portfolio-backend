@@ -1,0 +1,41 @@
+name: CI
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_DATABASE: portfolio_test
+          MYSQL_ROOT_PASSWORD: password
+        ports:
+          - 3306:3306
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+      - name: Install dependencies
+        run: composer install
+      - name: Create .env.testing
+        run: |
+          echo "APP_ENV=testing" >> .env.testing
+          echo "DB_CONNECTION=mysql" >> .env.testing
+          echo "DB_HOST=127.0.0.1" >> .env.testing
+          echo "DB_PORT=3306" >> .env.testing
+          echo "DB_USERNAME=root" >> .env.testing
+          echo "DB_PASSWORD=password" >> .env.testing
+          echo "DB_DATABASE=portfolio_test" >> .env.testing
+          echo "JWT_SECRET=SGtX6vPGroDDVpwuTuE6aRQFeiQ5WxviRnsUZt3yxhbFTyGBO3UlhBsRk9MfFN4V" >> .env.testing
+      - name: Generate key
+        run: php artisan key:generate --env=testing
+      - name: Migration
+        run: php artisan migrate --env=testing
+      - name: Run tests
+        run: php artisan test
