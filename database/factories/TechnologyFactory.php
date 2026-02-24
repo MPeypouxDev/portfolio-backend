@@ -20,7 +20,7 @@ class TechnologyFactory extends Factory
             'name' => $this->faker->word(1),
             'type' => $this->faker->randomElement(['frontend', 'backend', 'database', 'tools']),
             'color' => $this->faker->hexColor(),
-            'icon' => $this->faker->word(1),
+            'icon' => $this->faker->word(),
         ];
     }
 }
