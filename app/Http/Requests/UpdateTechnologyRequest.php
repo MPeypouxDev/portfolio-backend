@@ -27,19 +27,19 @@ class UpdateTechnologyRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                'unique:technologies,name,' . $this->route('id')
+                'unique:technologies,name,'.$this->route('id'),
             ],
             'icon' => [
                 'nullable',
                 'string',
-                'max:255'
+                'max:255',
             ],
             'color' => [
                 'sometimes',
                 'required',
                 'string',
-                'max:7'
-            ]
+                'max:7',
+            ],
         ];
     }
 

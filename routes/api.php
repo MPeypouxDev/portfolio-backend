@@ -1,13 +1,12 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ContactController;
+use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\TechnologyController;
-use App\Http\Controllers\Api\ImageController;
-use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\UploadController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +47,6 @@ Route::get('/images/{id}', [ImageController::class, 'show']);
 */
 Route::post('/contact', [ContactController::class, 'store']);
 
-
 /*
 |--------------------------------------------------------------------------
 | Routes protégées (nécessitent un token JWT)
@@ -80,6 +78,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/contacts', [ContactController::class, 'index']);
     Route::get('/contacts/{id}', [ContactController::class, 'show']);
     Route::delete('/contacts/{id}', [ContactController::class, 'destroy']);
+    Route::put('/admin/contacts/{id}/read', [ContactController::class, 'markAsRead']);
 
     // Routes Uploads
     Route::post('/upload', [UploadController::class, 'uploadImage']);

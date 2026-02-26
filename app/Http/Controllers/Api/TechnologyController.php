@@ -1,13 +1,12 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Technology;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreTechnologyRequest;
 use App\Http\Requests\UpdateTechnologyRequest;
 use App\Http\Resources\TechnologyResource;
+use App\Models\Technology;
 
 class TechnologyController extends Controller
 {
@@ -41,7 +40,7 @@ class TechnologyController extends Controller
     public function show($id)
     {
         $technology = Technology::findOrFail($id);
-        
+
         return new TechnologyResource($technology);
     }
 

@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Contact;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreContactRequest;
 use App\Http\Resources\ContactResource;
+use App\Models\Contact;
 
 class ContactController extends Controller
 {
@@ -21,7 +20,7 @@ class ContactController extends Controller
 
         return response()->json([
             'message' => 'Message sent successfully',
-            'contact' => $contact
+            'contact' => $contact,
         ], 201);
     }
 
@@ -31,7 +30,7 @@ class ContactController extends Controller
     public function index()
     {
         $contact = Contact::orderBy('created_at', 'desc')->get();
-        
+
         return ContactResource::collection($contact);
     }
 
@@ -41,7 +40,7 @@ class ContactController extends Controller
     public function show($id)
     {
         $contact = Contact::findOrFail($id);
-        
+
         return new ContactResource($contact);
     }
 
@@ -54,5 +53,13 @@ class ContactController extends Controller
         $contact->delete();
 
         return response()->json(['message' => 'Contact deleted successfuly']);
+    }
+
+    public function markAsRead($id)
+    {
+        $contact = Contact::findOrFail($id);
+        $contact->update(['read_at' => now()]);
+
+        return new ContactResource($contact);
     }
 }

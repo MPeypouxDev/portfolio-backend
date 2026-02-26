@@ -27,63 +27,63 @@ class UpdateProjectRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                'unique:projects,title,' . $this->route('id')
+                'unique:projects,title,'.$this->route('id'),
             ],
             'slug' => [
                 'sometimes',
                 'string',
                 'max:255',
-                'unique:projects,slug,' . $this->route('id'),
-                'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/'
+                'unique:projects,slug,'.$this->route('id'),
+                'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/',
             ],
             'description' => [
                 'sometimes',
                 'string',
-                'min:10'
+                'min:10',
             ],
             'status' => [
                 'sometimes',
-                'in:draft,published,archived'
+                'in:draft,published,archived',
             ],
             'github_url' => [
                 'sometimes',
                 'nullable',
                 'url',
-                'starts_with:https://'
+                'starts_with:https://',
             ],
             'demo_url' => [
                 'sometimes',
                 'nullable',
                 'url',
-                'starts_with:https://'
+                'starts_with:https://',
             ],
             'date_realisation' => [
                 'sometimes',
                 'date',
-                'before_or_equal:today'
+                'before_or_equal:today',
             ],
             'is_featured' => [
                 'sometimes',
                 'nullable',
-                'boolean'
+                'boolean',
             ],
             'order' => [
                 'sometimes',
                 'integer',
-                'min:1'
+                'min:1',
             ],
             'type' => [
                 'sometimes',
-                'in:frontend,fullstack,backend'
+                'in:frontend,fullstack,backend',
             ],
             'technologies' => [
                 'nullable',
-                'array'
+                'array',
             ],
             'technologies.*' => [
                 'integer',
-                'exists:technologies,id'
-            ]
+                'exists:technologies,id',
+            ],
         ];
     }
 

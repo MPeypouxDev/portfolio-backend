@@ -31,23 +31,23 @@ class UploadController extends Controller
         $width = $dimensions[0];
         $height = $dimensions[1];
 
-        if ($width < 800 || $height < 600 ) {
+        if ($width < 800 || $height < 600) {
             return response()->json([
                 'message' => 'Image too small. Minimum dimensions: 800x600px',
-                'current_dimensions' => "{$width}x{$height}"
+                'current_dimensions' => "{$width}x{$height}",
             ], 422);
         }
 
         if ($width > 4000 || $height > 4000) {
             return response()->json([
                 'message' => 'Image too big. Maximal dimensions: 4000x4000px',
-                'current_dimensions' => "{$width}x{$height}"
+                'current_dimensions' => "{$width}x{$height}",
             ], 422);
         }
 
         // Génération d'un nom de fichier unique
         $extension = $file->getClientOriginalExtension();
-        $filename = $type . '-' . Str::random(10) . '-' . time() . '-' . $extension;
+        $filename = $type.'-'.Str::random(10).'-'.time().'-'.$extension;
 
         // Chemin de stockage
         $path = $file->storeAs(
@@ -68,7 +68,7 @@ class UploadController extends Controller
             'dimensions' => [
                 'width' => $width,
                 'height' => $height,
-            ],  
+            ],
         ], 201);
     }
 
@@ -83,7 +83,7 @@ class UploadController extends Controller
 
         $path = $request->input('path');
 
-        if (!Storage::disk('public')->exists($path)) {
+        if (! Storage::disk('public')->exists($path)) {
             return response()->json([
                 'message' => 'File not found',
             ], 404);

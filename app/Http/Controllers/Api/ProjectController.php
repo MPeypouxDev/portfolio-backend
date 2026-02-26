@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-// use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
+// use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
+use App\Models\Project;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -29,7 +28,6 @@ class ProjectController extends Controller
     /**
      * Liste tous les projets (admin)
      */
-
     public function adminIndex()
     {
         $projects = Project::with(['author', 'technologies', 'images'])
@@ -43,7 +41,6 @@ class ProjectController extends Controller
     /**
      * Projets en vedette
      */
-
     public function featured()
     {
         $projects = Project::with(['author', 'technologies', 'images'])
@@ -66,7 +63,7 @@ class ProjectController extends Controller
         $slug = $data['slug'] ?? Str::slug($data['title']);
 
         if (Project::where('slug', $slug)->exists()) {
-            $slug .= '-' . now()->format('His');
+            $slug .= '-'.now()->format('His');
         }
 
         $data['slug'] = $slug;
@@ -75,7 +72,6 @@ class ProjectController extends Controller
 
         $project = Project::create($data);
 
-        // Attacher les technologies
         if (isset($data['technologies'])) {
             $project->technologies()->attach($data['technologies']);
         }
@@ -107,11 +103,11 @@ class ProjectController extends Controller
 
         $validated = $request->validated();
 
-        if (isset($validated['title']) && !isset($validated['slug'])) {
+        if (isset($validated['title']) && ! isset($validated['slug'])) {
             $slug = Str::slug($validated['title']);
 
             if (Project::where('slug', $slug)->where('id', '!=', $project->id)->exists()) {
-                $slug .= '-' . now()->format('His');
+                $slug .= '-'.now()->format('His');
             }
 
             $validated['slug'] = $slug;

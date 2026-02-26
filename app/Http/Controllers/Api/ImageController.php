@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Image;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UploadImageRequest;
 use App\Http\Resources\ImageResource;
+use App\Models\Image;
 
 class ImageController extends Controller
 {
@@ -17,7 +15,7 @@ class ImageController extends Controller
     public function index()
     {
         $images = Image::with('project')->get();
-        
+
         return ImageResource::collection($images);
     }
 
@@ -41,7 +39,7 @@ class ImageController extends Controller
     public function show($id)
     {
         $image = Image::with('project')->findOrFail($id);
-        
+
         return new ImageResource($image);
     }
 

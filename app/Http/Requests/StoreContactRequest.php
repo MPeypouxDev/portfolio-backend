@@ -35,6 +35,7 @@ class StoreContactRequest extends FormRequest
             'email' => [
                 'required',
                 'string',
+                'email',
                 'max:255',
             ],
             'phone' => [
@@ -45,7 +46,7 @@ class StoreContactRequest extends FormRequest
             'messages' => [
                 'required',
                 'string',
-            ]
+            ],
         ];
     }
 

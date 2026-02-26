@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProjectRequest extends FormRequest
 {
@@ -26,61 +27,61 @@ class StoreProjectRequest extends FormRequest
                 'required',
                 'string',
                 'max:255',
-                'unique:projects,title'
+                Rule::unique('projects', 'title')->whereNull('deleted_at'),
             ],
             'slug' => [
                 'nullable',
                 'string',
                 'max:255',
-                'unique:projects,slug',
-                'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/'
+                Rule::unique('projects', 'slug')->whereNull('deleted_at'),
+                'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/',
             ],
             'description' => [
                 'required',
                 'string',
-                'min:10'
+                'min:10',
             ],
             'status' => [
                 'required',
-                'in:draft,published,archived'
+                'in:draft,published,archived',
             ],
             'github_url' => [
                 'nullable',
                 'url',
-                'starts_with:https://'
+                'starts_with:https://',
             ],
             'demo_url' => [
                 'nullable',
                 'url',
-                'starts_with:https://'
+                'starts_with:https://',
             ],
             'date_realisation' => [
                 'required',
                 'date',
-                'before_or_equal:today'
+                'before_or_equal:today',
             ],
             'is_featured' => [
                 'nullable',
-                'boolean'
+                'boolean',
             ],
             'order' => [
                 'required',
                 'integer',
-                'min:1'
+                'min:1',
             ],
             'type' => [
                 'required',
                 'string',
-                'in:frontend,fullstack,backend'
+                'in:frontend,fullstack,backend',
             ],
             'technologies' => [
                 'nullable',
-                'array'
+                'array',
             ],
             'technologies.*' => [
                 'integer',
-                'exists:technologies,id'
-            ]
+                'exists:technologies,id',
+            ],
         ];
     }
 
