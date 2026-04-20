@@ -26,7 +26,7 @@ class ProjectResource extends JsonResource
             'github_url' => $this->github_url,
             'demo_url' => $this->demo_url,
             'date_realisation' => $this->date_realisation
-                ? \Carbon\Carbon::parse($this->date_realisation)->format('d/m/Y')
+                ? \Carbon\Carbon::parse($this->date_realisation)->format('Y/m/d')
                 : null,
 
             'author' => $this->when($this->relationLoaded('author'), [
