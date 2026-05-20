@@ -17,7 +17,7 @@ class TechnologyFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->word(1),
+            'name' => $this->faker->unique()->word(),
             'type' => $this->faker->randomElement(['frontend', 'backend', 'database', 'tools']),
             'color' => $this->faker->hexColor(),
             'icon' => $this->faker->word(),

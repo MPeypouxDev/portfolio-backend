@@ -27,10 +27,6 @@ class TechnologyTest extends TestCase
     /** @test */
     public function can_get_list_of_technologies()
     {
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        Technology::truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-
         Technology::factory()->count(5)->create();
 
         $response = $this->getJson('/api/technologies');

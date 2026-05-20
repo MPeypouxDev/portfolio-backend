@@ -16,7 +16,11 @@ return new class extends Migration
             $table->dropUnique('projects_slug_unique');
         });
 
-        DB::statement('ALTER TABLE projects ADD UNIQUE INDEX projects_slug_unique (slug, deleted_at)');
+        if (DB::connection()->getDriverName() === 'sqlite') {
+            DB::statement('CREATE UNIQUE INDEX projects_slug_unique ON projects (slug, deleted_at)');
+        } else {
+            DB::statement('ALTER TABLE projects ADD UNIQUE INDEX projects_slug_unique (slug, deleted_at)');
+        }
     }
 
     /**

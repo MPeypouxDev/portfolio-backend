@@ -33,6 +33,11 @@ class StoreTechnologyRequest extends FormRequest
                 'string',
                 'max:255',
             ],
+            'type' => [
+                'required',
+                'string',
+                'in:backend,frontend,database,tools',
+            ],
             'color' => [
                 'required',
                 'string',

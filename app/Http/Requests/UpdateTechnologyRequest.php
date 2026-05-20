@@ -34,6 +34,12 @@ class UpdateTechnologyRequest extends FormRequest
                 'string',
                 'max:255',
             ],
+            'type' => [
+                'sometimes',
+                'required',
+                'string',
+                'in:backend,frontend,database,tools',
+            ],
             'color' => [
                 'sometimes',
                 'required',
